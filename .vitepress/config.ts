@@ -1,0 +1,130 @@
+import { defineConfig } from 'vitepress'
+
+const items = [
+  {
+    text: 'HTML规范',
+    link: '/docs/code/html/'
+  },
+  {
+    text: 'CSS规范',
+    link: '/docs/code/css/'
+  },
+  {
+    text: 'JavaScript规范',
+    link: '/docs/code/js/'
+  },
+  {
+    text: 'TypeScript规范',
+    link: '/docs/code/ts/'
+  },
+  {
+    text: 'Vue规范',
+    link: '/docs/code/vue/'
+  }
+]
+
+export default defineConfig({
+  base: '/coding-standard/',
+  title: 'Web前端代码规范',
+  lang: 'zh-CN',
+  description: '前端代码规范',
+  head: [
+    ['meta', { name: 'author', content: 'xiaofei' }],
+    [
+      'meta',
+      {
+        name: 'keywords',
+        content: 'Web前端代码规范, vitejs, vite'
+      }
+    ],
+    [
+      'meta',
+      {
+        name: 'viewport',
+        content:
+          'width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'
+      }
+    ],
+    ['meta', { name: 'keywords', content: 'Web前端代码规范 docs' }],
+    ['link', { rel: 'icon', href: '/coding-standard/ico.png' }]
+  ],
+  themeConfig: {
+    sidebarMenuLabel: '菜单',
+    returnToTopLabel: '返回顶部',
+    outlineTitle: '本页导航',
+    lastUpdatedText: '上次更新时间',
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/l-x-f/coding-standard' }
+    ],
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
+    nav: [
+      {
+        text: '首页',
+        link: '/'
+      },
+      {
+        text: '文件命名规范',
+        link: '/docs/name/'
+      },
+      {
+        text: '前端代码规范',
+        items: [...items]
+      },
+      {
+        text: 'Git规范',
+        link: '/docs/git/'
+      },
+      {
+        text: 'UI规范',
+        link: '/docs/ui/'
+      },
+      {
+        text: '友情链接',
+        items: [
+          {
+            text: '腾讯代码规范',
+            link: 'https://alloyteam.github.io/CodeGuide/'
+          },
+          {
+            text: 'Google HTML/CSS代码风格指南',
+            link: 'http://iischajn.github.io/trans/htmlcss-guide/'
+          },
+          {
+            text: 'js代码整洁之道',
+            link: 'https://github.com/alivebao/clean-code-js'
+          },
+          {
+            text: 'Vue风格指南',
+            link: 'https://v2.cn.vuejs.org/v2/style-guide/'
+          },
+          {
+            text: 'Ant Design设计规范',
+            link: 'https://ant.design/docs/spec/introduce-cn'
+          },
+          {
+            text: '微信小程序设计规范',
+            link: 'https://developers.weixin.qq.com/miniprogram/design/'
+          }
+        ]
+      }
+    ],
+    sidebar: {
+      '/docs/code/': [
+        {
+          text: '代码规范',
+          items: [...items]
+        }
+      ]
+    },
+    footer: {
+      message: 'MIT Licensed.',
+      copyright: 'Copyright © 2019-present xiaofei'
+    }
+  },
+  markdown: {
+    lineNumbers: true
+  }
+})
