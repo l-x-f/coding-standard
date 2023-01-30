@@ -23,27 +23,28 @@ const items = [
   }
 ]
 
+const keywords =
+  'Web 前端代码规范，HTML规范，CSS规范，JavaScript规范，TypeScript规范，Vue规范，文件命名规范，Git规范，UI规范'
+
 export default defineConfig({
   base: '/coding-standard/',
   title: 'Web前端代码规范',
   lang: 'zh-CN',
-  description: '前端代码规范',
+  description: 'Web前端代码规范',
   head: [
     ['meta', { name: 'author', content: 'xiaofei' }],
     [
       'meta',
       {
         name: 'keywords',
-        content:
-          'HTML规范，CSS规范，JavaScript规范，TypeScript规范，Vue规范，文件命名规范，Git规范，UI规范'
+        content: keywords
       }
     ],
     [
       'meta',
       {
         name: 'description',
-        content:
-          'HTML规范，CSS规范，JavaScript规范，TypeScript规范，Vue规范，文件命名规范，Git规范，UI规范'
+        content: keywords
       }
     ],
     [
@@ -57,6 +58,7 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/coding-standard/ico.png' }]
   ],
   themeConfig: {
+    darkModeSwitchLabel: '主题',
     sidebarMenuLabel: '菜单',
     returnToTopLabel: '返回顶部',
     outlineTitle: '本页导航',
