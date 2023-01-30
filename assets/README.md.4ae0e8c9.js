@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a,a as o}from"./app.bb00c5ed.js";const E=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"README.md"}'),s={name:"README.md"},n=o("p",null,"Web 前端代码规范",-1),r=[n];function c(_,d,p,i,l,m){return a(),t("div",null,r)}const u=e(s,[["render",c]]);export{E as __pageData,u as default};
