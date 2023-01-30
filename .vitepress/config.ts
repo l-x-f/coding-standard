@@ -34,7 +34,16 @@ export default defineConfig({
       'meta',
       {
         name: 'keywords',
-        content: 'Web前端代码规范, vitejs, vite'
+        content:
+          'HTML规范，CSS规范，JavaScript规范，TypeScript规范，Vue规范，文件命名规范，Git规范，UI规范'
+      }
+    ],
+    [
+      'meta',
+      {
+        name: 'description',
+        content:
+          'HTML规范，CSS规范，JavaScript规范，TypeScript规范，Vue规范，文件命名规范，Git规范，UI规范'
       }
     ],
     [
@@ -45,7 +54,6 @@ export default defineConfig({
           'width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'
       }
     ],
-    ['meta', { name: 'keywords', content: 'Web前端代码规范 docs' }],
     ['link', { rel: 'icon', href: '/coding-standard/ico.png' }]
   ],
   themeConfig: {
