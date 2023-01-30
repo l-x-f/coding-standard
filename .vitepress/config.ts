@@ -103,7 +103,7 @@ export default defineConfig({
             link: 'http://iischajn.github.io/trans/htmlcss-guide/'
           },
           {
-            text: 'js代码整洁之道',
+            text: 'JavaScript代码整洁之道',
             link: 'https://github.com/alivebao/clean-code-js'
           },
           {

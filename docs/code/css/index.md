@@ -9,7 +9,7 @@
 
 ## 命名
 
-- 类名使用小写字母，以中划线分隔，使用 `BEM` 命名规范,为 `ID` 和 `class` 取通用且有意义的名字且应尽量简短。
+- 类名使用小写字母，以中划线分隔，使用 `BEM` 命名规范，为 `ID` 和 `class` 取通用且有意义的名字且应尽量简短。
 
 `Bem` 是块（`block`）、元素（`element`）、修饰符（`modifier`）的简写，由 `Yandex` 团队提出的一种前端 CSS 命名方法论。
 
@@ -22,7 +22,10 @@
 ```html
 <div class="el-scrollbar">
   <div class="el-scrollbar__wrap">
-    <div class="el-scrollbar__view" style=""></div>
+    <div class="el-scrollbar__view" style="">
+      <div class="el-scrollbar__view_primary"></div>
+      <div class="el-scrollbar__view_success"></div>
+    </div>
   </div>
 </div>
 ```
@@ -445,7 +448,7 @@
 
 ## 引号
 
-最外层统一使用双引号；`url` 的内容要用引号；属性选择器中的属性值需要引号。
+统一使用单引号；`url` 的内容要用引号；属性选择器中的属性值需要引号。
 
 ```css
 element:after {
@@ -479,7 +482,7 @@ li[data-type='single'] {
 
 - 元素选择器用小写字母；
 
-- 去掉小数点前面的 `0`；`（建议）`
+- 建议去掉小数点前面的 `0`；
 
 - 去掉数字中不必要的小数点和末尾的` 0`；
 

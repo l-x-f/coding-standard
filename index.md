@@ -17,24 +17,30 @@ features:
   - icon: 💡
     title: HTML
     details: Html规范
+    link: /docs/code/html/
 
   - icon: 🌈
     title: CSS
     details: CSS规范
+    link: /docs/code/css/
 
   - icon: 👑
     title: JavaScript
     details: JavaScript 规范
+    link: /docs/code/js/
 
   - icon: 👕
     title: TypeScript
     details: TypeScript 规范
+    link: /docs/code/ts/
 
   - icon: ☠
     title: Vue
     details: Vue 规范
+    link: /docs/code/vue/
 
   - icon: 🎶
     title: 更多
     details: 更多规范
+    link: /docs/git/
 ---

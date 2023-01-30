@@ -126,7 +126,7 @@ computed: {
 }
 ```
 
-## 简单的计算属性强烈推荐
+## 简单的计算属性
 
 应该把复杂计算属性分割为尽可能多的更简单的 property。
 
@@ -156,6 +156,8 @@ export default {
 ```
 
 ## 在 v-if/v-else-if/v-else 中使用 key
+
+如果一组 v-if + v-else 的元素类型相同，最好使用 key (比如两个 `<div>` 元素)。
 
 ```html
 <!-- 不推荐 -->
