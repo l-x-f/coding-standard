@@ -14,7 +14,7 @@
 
 有些时候类型错误是组件的，但是看起来非常难受。会一直编译报报错，这里就可以使用 `@ts-ignore` 来暂时忽略它。
 
-```js
+```ts
 // @ts-ignore
 xxxx
 ```
@@ -40,11 +40,11 @@ xxxx
 
 - `type` 和 `interface` 并没有谁好谁坏根据它们适合的场景使用即可。
 
-  ```js
+  ```ts
   type UnionType = string | number
 
   interface IMenuItem {
-   /**
+    /**
      *  组件名称建议大驼峰命名， 和页面的name保持一致。
      *  名称用于页面缓存，必须保证每个路由的名称唯一
      */
@@ -74,7 +74,7 @@ xxxx
 
 - 类型定义的时候必须的属性放在可选的属性前面。
 - 类型定义的越详细越好，最好有注释。
-- 类型定义的时候应根据实际情况使用`typeScript`的高级类型
+- 类型定义的时候应根据实际情况使用`typeScript`的高级类型 [见下文](/docs/code/ts/#高级类型)
 
 ## 基础类型变量
 
@@ -90,7 +90,7 @@ const baz = false
 
 需要声明具体的类型
 
-```js
+```ts
 // 数组
 interface IItem {
   name: string
@@ -100,14 +100,13 @@ const list: IItem[] = []
 
 // 元组
 const list: [string, number] = ['name', 18]
-
 ```
 
 ## 对象
 
 需要声明具体的类型
 
-```js
+```ts
 interface IItem {
   name: string
   age: number
@@ -122,7 +121,7 @@ const item: IItem = {
 
 - 简单能推断出来的返回值类型不需要标注
 
-  ```js
+  ```ts
   // 不推荐
   const searchClear = (): void => {
     console.log('clear')
@@ -138,7 +137,7 @@ const item: IItem = {
 
   - 不要为返回值被忽略的回调函数设置一个 `any` 类型的返回值类型：
 
-    ```js
+    ```ts
     /* 不推荐 */
     function fn(x: () => any) {
       x()
@@ -157,7 +156,7 @@ const item: IItem = {
 
   - 不要因回调函数的参数数量不同而编写不同的重载。
 
-  ```js
+  ```ts
   // 不推荐
   declare function beforeAll(action: () => void, timeout?: number): void
   declare function beforeAll(
@@ -176,19 +175,19 @@ const item: IItem = {
   - 不要因为只有末尾参数不同而编写不同的重载
   - 不要仅因某个特定位置上的参数类型不同而定义重载，应该尽可能地使用联合类型：
 
-  ```js
+  ```ts
   // 不推荐
   interface Moment {
-    utcOffset(): number;
-    utcOffset(b: number): Moment;
-    utcOffset(b: string): Moment;
+    utcOffset(): number
+    utcOffset(b: number): Moment
+    utcOffset(b: string): Moment
   }
 
   // 应该尽可能地使用联合类型：
   // 推荐
   interface Moment {
-    utcOffset(): number;
-    utcOffset(b: number | string): Moment;
+    utcOffset(): number
+    utcOffset(b: number | string): Moment
   }
   ```
 
@@ -202,7 +201,7 @@ const item: IItem = {
 
 ## 高级类型
 
-所谓高级类型，是 `typescript` 为了保证语言的灵活性，所使用的一下语言特性。这些特性有助于我们应对复杂多变的开发场景。
+所谓高级类型，是 `typescript` 为了保证语言的灵活性，所使用的语言特性。这些特性有助于我们应对复杂多变的开发场景。
 
 - 高级类型
   - 交叉类型 `T & U` 其返回类型既要符合 T 类型也要符合 U 类型
@@ -210,70 +209,70 @@ const item: IItem = {
 - 关键字
 
   - 类型约束 `T extends K` 这里的 extends 不是类、接口的继承，而是对于类型的判断和约束，意思是判断 T 能否赋值给 K
-  - 类型映射 `in` 和 索引类型查询操作符 `keyof `
+  - 类型映射 `in` 和索引类型查询操作符 `keyof `
 
-    ```js
-      interface Person {
-        name: string
-        age: number
-        gender: number
-      }
+    ```ts
+    interface Person {
+      name: string
+      age: number
+      gender: number
+    }
 
-      // 将 T 的所有属性转换为只读类型
-      type ReadOnlyType<T> = {
-        readonly [P in keyof T]: T[P]
-      }
+    // 将 T 的所有属性转换为只读类型
+    type ReadOnlyType<T> = {
+      readonly [P in keyof T]: T[P]
+    }
 
-      // type ReadOnlyPerson = {
-      //     readonly name: string;
-      //     readonly age: number;
-      //     readonly gender: number;
-      // }
-      type ReadOnlyPerson = ReadOnlyType<Person>
+    // type ReadOnlyPerson = {
+    //     readonly name: string;
+    //     readonly age: number;
+    //     readonly gender: number;
+    // }
+    type ReadOnlyPerson = ReadOnlyType<Person>
 
-      type PersonProps = keyof Person; // 'name' | 'age' |'gender'
+    type PersonProps = keyof Person // 'name' | 'age' |'gender'
     ```
 
   - 类型谓词 `is` `parameterName is Type` 使用场景有限不建议使用
 
-    ```js
-      class Bird {
-        fly() {
-          console.log('Bird flying')
-        }
-        layEggs() {
-          console.log('Bird layEggs')
-        }
+    ```ts
+    class Bird {
+      fly() {
+        console.log('Bird flying')
       }
-
-      class Fish {
-        swim() {
-          console.log('Fish swimming')
-        }
-        layEggs() {
-          console.log('Fish layEggs')
-        }
+      layEggs() {
+        console.log('Bird layEggs')
       }
+    }
 
-      function isBird(bird: Bird | Fish): bird is Bird {
-        return !!(bird as Bird).fly
+    class Fish {
+      swim() {
+        console.log('Fish swimming')
       }
-
-      function start(pet: Bird | Fish) {
-        // 调用 layEggs 没问题，因为 Bird 或者 Fish 都有 layEggs 方法
-        pet.layEggs()
-
-        if (isBird(pet)) {
-          pet.fly()
-        } else {
-          pet.swim()
-        }
+      layEggs() {
+        console.log('Fish layEggs')
       }
+    }
+
+    function isBird(bird: Bird | Fish): bird is Bird {
+      return !!(bird as Bird).fly
+    }
+
+    function start(pet: Bird | Fish) {
+      // 调用 layEggs 没问题，因为 Bird 或者 Fish 都有 layEggs 方法
+      pet.layEggs()
+
+      if (isBird(pet)) {
+        pet.fly()
+      } else {
+        pet.swim()
+      }
+    }
     ```
 
   - 待推断类型 `infer`
-    ```js
-    type ParamType<T> = T extends (param: infer P) => any ? P : T;
+    ```ts
+    type ParamType<T> = T extends (param: infer P) => any ? P : T
     ```
   - 原始类型保护`typeof`
   - 类型保护 `instanceof`
@@ -283,9 +282,9 @@ const item: IItem = {
   - 只读类型`Readonly<T>`
   - 只读数组`ReadonlyArray<T>` `ReadonlyArray` 类型和 `Array` 类型很相似，但它是一个特殊的类型，用于生成不应该被更改的数组。
 
-  ```js
+  ```ts
   interface User {
-    name: string;
+    name: string
   }
 
   const userList: ReadonlyArray<User> = [{ name: 'foo' }, { name: 'bar' }]
@@ -296,11 +295,9 @@ const item: IItem = {
   // 但是内部元素如果是引用类型，元素自身是可以进行修改的
   userList[0].name = 'dar'
 
-
-  const str: ReadonlyArray<string> =  ['0', '1','2']
+  const str: ReadonlyArray<string> = ['0', '1', '2']
   // 可以简写为
-  const str: readonly string[] = ['0', '1','2']
-
+  const str: readonly string[] = ['0', '1', '2']
   ```
 
   - 可选类型`Partial<T>` 类型都变成可选的
@@ -312,23 +309,25 @@ const item: IItem = {
   - 属性映射`Record<K, T>`
   - 不可为空类型`NonNullable<T>`
   - 构造函数参数类型`ConstructorParameters<typeof T>`
-  - 函数参数类型`Parameters<T>` -函数返回值类型`ReturnType<T>`
+  - 函数参数类型`Parameters<T>`
+  - 函数返回值类型`ReturnType<T>`
 
 ## 断言
 
 - 建议使用 `as` 不要使用 `<>`
 
-  ```js
+  ```ts
   const getStrLength = (target: string | number): number => {
-    if ((<string>target).length) { //  这种形式在JSX代码中不可以使用，而且也是TSLint不建议的写法
-      return (target as string).length; // 这种形式是没有任何问题的写法，所以建议大家始终使用这种形式
+    if ((<string>target).length) {
+      //  这种形式在JSX代码中不可以使用，而且也是TSLint不建议的写法
+      return (target as string).length // 这种形式是没有任何问题的写法，所以建议大家始终使用这种形式
     } else {
-      return target.toString().length;
+      return target.toString().length
     }
   }
   ```
 
-- 尽量不使用非空断言操作符 `!`
+- 尽量不使用非空断言操作符 `!`，语句末尾除外。
 
 ## 注释
 

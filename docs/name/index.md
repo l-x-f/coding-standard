@@ -1,5 +1,9 @@
 # 文件命名规范
 
+## 命名规则
+
+一般用小写英文 、 数字、 `- `这些字符，命名最好是通用英文，尽量不用或者少用拼音。
+
 ## 项目命名
 
 全部采用小写方式， 以中划线分隔。
@@ -13,16 +17,19 @@
 
 - 常用目录结构
 
+根据实际项目需求增减对应的目录
+
 ```sh
 .
 ├── README.md                           #项目简介
 ├── index.html                          #页面入口
 ├── mock                                #mock
 ├── package.json                        #package
+├── public                              #静态资源（一般不需要构建工具处理的）
 ├── docs                                #文档
 ├── src                                 #核心源码
-│   ├── api                             #接口
-│   ├── assets                          #资源
+│   ├── api (services)                  #请求接口
+│   ├── assets                          #图片字体等资源
 │   ├── components                      #通用组件
 │   ├── config                          #项目配置
 │   ├── hooks                           #钩子函数
@@ -31,11 +38,15 @@
 │   ├── locales                         #国际化配置
 │   ├── plugins                         #插件
 │   ├── router                          #路由
-│   ├── store                           #数据仓库，权限处理
+│   ├── store (models)                  #数据仓库
 │   ├── styles                          #全局样式和样式变量
 │   ├── utils                           #工具函数
-│   └── views                           #业务页面
-└── scripts                             #工作流脚本
+│   └── views (pages)                   #业务页面
+├── scripts                             #工作流脚本
+├── tests                               #测试用例
+│   ├── e2e                             #端到端测试
+│   └── unit                            #单元测试
+└── types (typings)                     #ts类型
 ```
 
 ## JS,TS 文件命名
@@ -55,6 +66,12 @@
 全部采用小写方式， 以中划线分隔。
 
 例：`error-report.html`.
+
+## 图片/视频/声音文件
+
+全部采用小写方式， 以中划线分隔。
+
+例：`logo-blue.png`.
 
 ## Components 组件
 

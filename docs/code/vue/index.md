@@ -1,5 +1,7 @@
 # Vue 规范
 
+**需要熟悉每一条，规范中绝大部分采用 eslint 和 prettier 配置对应规则强制统一。**
+
 ## 简介
 
 - 文中标记 `vue 2`的是 `vue 2` 需要注意的
@@ -70,15 +72,32 @@ const props = defineProps({
 
 `setup` `ts` 语法中建议的写法
 
-```ts
-interface IProps {
-  content?: string
-}
+- 常用
 
-const props = withDefaults(defineProps<IProps>(), {
-  content: ''
-})
-```
+  ```ts
+  interface IProps {
+    content?: string
+  }
+
+  const props = withDefaults(defineProps<IProps>(), {
+    content: ''
+  })
+  ```
+
+- 或者为
+
+  ```ts
+  const props = defineProps({
+    modelValue: {
+      type: Array as PropType<string[]>,
+      default: () => []
+    },
+    valueFormat: {
+      type: String,
+      default: ''
+    }
+  })
+  ```
 
 ## 为 v-for 设置键值 key
 
@@ -155,6 +174,10 @@ export default {
 }
 ```
 
+## 不可更改的计算属性
+
+不要试图修改计算属性的值，除非有设置 `setter`。
+
 ## 在 v-if/v-else-if/v-else 中使用 key
 
 如果一组 v-if + v-else 的元素类型相同，最好使用 key (比如两个 `<div>` 元素)。
@@ -203,13 +226,15 @@ export default {
 </style>
 ```
 
-## 组件文件强烈推荐
+## 组件文件
 
-只要有能够拼接文件的构建系统，就把每个组件单独分成文件。
+只要有能够拼接文件的构建系统，就把每个组件单独分成文件，不要写成字符串模板的形式。
 
 ## 组件名为多个单词
 
 组件名应该始终是多个单词的，根组件 `App` 以及 `<transition>`、`<component>` 之类的 `Vue` 内置组件除外。
+
+例如：`TreeSelect` `TableColumn`
 
 ## 紧密耦合的组件命名
 
@@ -308,6 +333,38 @@ export default {
 
   `v-html`
   `v-text`
+
+```html
+<!-- 不推荐 -->
+<AppForm
+  @submitSuccess="handleSubmitSuccess"
+  footer-text-align="center"
+  :label-width="formLabelWidth"
+  :submit-loading="submitLoading"
+  :model="ruleForm"
+  @cancel="handleBack"
+  :rules="rules"
+  ref="appFormInstance"
+  :confirm-text="$t('app.submit')"
+  :has-footer="isCreate"
+  v-model="data"
+/>
+
+<!-- 推荐 -->
+<AppForm
+  ref="appFormInstance"
+  v-model="data"
+  footer-text-align="center"
+  :label-width="formLabelWidth"
+  :submit-loading="submitLoading"
+  :model="ruleForm"
+  :rules="rules"
+  :confirm-text="$t('app.submit')"
+  :has-footer="isCreate"
+  @submitSuccess="handleSubmitSuccess"
+  @cancel="handleBack"
+/>
+```
 
 ## 组件/实例的选项的顺序 `vue 2`
 
@@ -465,4 +522,64 @@ import type { ITableConfigRaw, AppTableInstance } from '@/components/Table'
 import AppTable, { defaultPageInfo } from '@/components/Table'
 import type { ISearchData } from './search.vue'
 import Search, { DefaultQuery } from './search.vue'
+```
+
+## 全局方法和属性 `vue 2`
+
+尽量少的在 Vue 原型上添加全局方法和属性
+
+```js
+//  不推荐
+Vue.prototype.$http = axios
+Vue.prototype.$utils = utils
+Vue.prototype.$filter = filter
+```
+
+## 全局方法和属性 `vue 3`
+
+尽量少的在 Vue 原型上添加全局方法和属性
+
+```js
+//  不推荐
+const app = createApp(App)
+app.config.globalProperties.$http = axios
+app.config.globalProperties.$utils = utils
+app.config.globalProperties.$filter = filter
+```
+
+## 推荐 Vue-Router 写法
+
+路由全部采用懒加载的方式导入（除了登录布局等需要网站一打开就需要加载的页面）， 保证代码分割和高效加载。
+
+```js
+// 不推荐
+import RoleIndex from '@/views/user-permission/role/index.vue'
+import CreateRole from '@/views/user-permission/role/create.vue'
+
+const asyncRouter = [
+  {
+    path: '/user/permission/role',
+    name: 'RoleIndex',
+    component: RoleIndex
+  },
+  {
+    path: '/user/permission/role/create',
+    name: 'RoleIndex',
+    component: RoleIndex
+  }
+]
+
+// 推荐
+const asyncRouter = [
+  {
+    path: '/user/permission/role',
+    name: 'RoleIndex',
+    component: () => import('@/pages/intention/list')
+  },
+  {
+    path: '/user/permission/role/create',
+    name: 'RoleIndex',
+    component: () => import('@/pages/variable')
+  }
+]
 ```

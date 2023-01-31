@@ -4,13 +4,13 @@
 
 ## 缩进
 
-缩进使用 2 个空格；
+缩进使用 2 个空格； 不要混用 `tab` 和 `space`。
 
 ## 分号
 
-非不要不加分号，特殊的语句除外。
+统一不加分号， 影响到 JS 语句执行的特殊的语句除外。
 
-特殊的语句
+例如下面的特殊的语句
 
 ```js
 const lang = {
@@ -49,7 +49,7 @@ const lang = {
 
 ## 换行
 
-以下几种情况需要换行：
+换行符统一用`LF`；以下几种情况需要换行：
 
 - 代码块`{`后和`}`前
 - 变量赋值后
@@ -111,35 +111,33 @@ a = 200
 ## 数组、对象
 
 - 对象属性名不需要加引号，（特殊变量除外）；
-- 对象以缩进的形式书写，不要写在一行；
+- 对象多个属性以缩进的形式书写，不要写在一行；
 - 数组、对象最后不要有逗号；
 - 操作数组对象时尽可能使用不改变源数据的方法；
 - 操作复杂数组对象需要改变源数据时尽可能使用`深拷贝`；
 - 操作数组对象时尽可能使用函数式编程，避免使用命令式的方法；
 
-  类如 删除对象属性 不要用 `delete `命令， 应该使用 `Reflect.deleteProperty()`
+  例如： 删除对象属性 不要用 `delete `命令， 应该使用 `Reflect.deleteProperty()`
 
 - 善于利用 ES6 Array 处理数组
 
-  `Array.find()`,`Array.forEach()`,`Array.filter()`,`Array.map()`,`Array.reduce()`
+  - `Array.find()`,`Array.forEach()`,`Array.filter()`,`Array.map()`,`Array.reduce()`等
 
-  数组 `rest` 运算符
+  - 数组 `rest` 运算符
 
-  多重判断时使用 `Array.includes`
+  - 多重判断时使用 `Array.includes`
 
-  对 所有/部分 判断使用 `Array.every` & `Array.some`
+  - 对 所有/部分 判断使用 `Array.every` & `Array.some`
 
 - 善于利用 `ES6 Object` 和`Reflect`处理对象
 
-  对象解构
+  - 对象解构
 
-  `rest`
+  - `rest`
 
-  `Object.assign()`
+  - `Object.assign()` ,`Object.keys()`,`Object.values()`等
 
-  `Object.keys()`,`Object.values()`
-
-  `Reflect.get()`,`Reflect.set()`,`Reflect.deleteProperty()` 等
+  - `Reflect.get()`,`Reflect.set()`,`Reflect.deleteProperty()` 等
 
 ```js
 // 不推荐
@@ -208,9 +206,9 @@ const d = {
 
   S：单一职责原则（`SRP`） 每个类应该负责系统的单个部分或功能。
 
-  O : 开闭原则 （`OSP`） 软件组件应该对扩展开放，而不是对修改开放。
+  O： 开闭原则 （`OSP`） 软件组件应该对扩展开放，而不是对修改开放。
 
-  L : 里氏替换原则 （`LSP`） 超类的对象应该可以用其子类的对象替换而不破坏系统。
+  L： 里氏替换原则 （`LSP`） 超类的对象应该可以用其子类的对象替换而不破坏系统。
 
   I：接口隔离原则（`ISP`） 不应强迫客户端依赖于它不使用的方法。
 
@@ -273,7 +271,7 @@ if (typeof person === 'undefined') {
 
 - 多行注释
 
-  最少三行, `/*`后跟一个空格，具体参照右边的写法；
+  最少三行, `/*`后跟一个空格，具体参照下边的写法；
 
   建议在以下情况下使用：
 
@@ -291,7 +289,7 @@ if (typeof person === 'undefined') {
 
 - 文档注释
 
-  各类标签 `@param`, `@method` 使用 `jsdoc` 规范。
+  各类标签 `@param`, `@method` 使用 [jsdoc](https://jsdoc.app/) 规范。
 
   建议在以下情况下使用：
 
@@ -317,11 +315,45 @@ if (typeof person === 'undefined') {
 
 ## 16. 其他
 
-- 判断相等时永远要用三等 `===`, 禁止用双等`==`。判断不相等时永远要用 `!==`, 禁止用双等`!=`
+- 判断相等时永远要用三等 `===`, 禁止用双等`==`。判断不相等时永远要用 `!==`, 禁止用双等`!=`；
+
+- 对上下文 `this` 的引用只能使用`_this`, `that`, `self`其中一个来命名；
 
 - 删除无效的代码。尽量不要在代码库中遗留被注释掉的代码。
 
-- `for in` 里一定要有 `hasOwnProperty` 的判断；
+- `for in` 里最好要有 `hasOwnProperty` 的判断；
+
+  原因：如果给内置原型添加属性/方法，那么`for in`时也是可遍历的
+
+  ```js
+  class Top {
+    constructor(age) {
+      this.age = age
+    }
+  }
+  Top.prototype.say = function () {}
+
+  class Bottom extends Top {
+    constructor(gender) {
+      super()
+      this.gender = gender
+    }
+  }
+  Bottom.prototype.clone = function () {}
+  const data = new Bottom()
+
+  // 不推荐
+  for (const key in data) {
+    console.log(key) // age  gender  clone say
+  }
+
+  // 推荐
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      console.log(key) // age gender
+    }
+  }
+  ```
 
 - 不要在内置对象的原型上添加方法，如 `Array`,` Date`；
 
@@ -331,11 +363,19 @@ if (typeof person === 'undefined') {
 
 - 不要在一句代码中单单使用构造函数，记得将其赋值给某个变量；
 
+  ```js
+  // 不推荐
+  new Date()
+
+  // 推荐
+  const date = new Date()
+  ```
+
 - 不要在同个作用域下声明同名变量；
 
-- 不要在一些不需要的地方加括号，例：delete(a.b)；
+- 不要在一些不需要的地方加括号，例：`delete(a.b)`；
 
-- 不要使用未声明的变量（全局变量需要加到.eslint 文件的 globals 属性里面）；
+- 不要使用未声明的变量（全局变量需要加到`.eslint` 文件的 `globals` 属性里面）；
 
 - 不要声明了变量却不使用；
 
@@ -347,8 +387,8 @@ if (typeof person === 'undefined') {
 
 - 不要在循环内部声明函数；
 
-- 不要像这样使用构造函数，例：new function () { ... }, new Object；
+- 不要像这样使用构造函数，例：`new function () { ... }` ` new Object`；
 
 - 避免过度优化；
 
-- `console.log`避免出现在生产环境中 ；
+- `console.log`避免出现在生产环境中；
