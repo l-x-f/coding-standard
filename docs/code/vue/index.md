@@ -405,7 +405,6 @@ export default {
 
   // 9.事件 (通过响应式事件触发的回调)
   watch: {},
-
   // 生命周期钩子 (按照它们被调用的顺序)
   beforeCreate() {},
   created() {},
@@ -564,8 +563,8 @@ const asyncRouter = [
   },
   {
     path: '/user/permission/role/create',
-    name: 'RoleIndex',
-    component: RoleIndex
+    name: 'CreateRole',
+    component: CreateRole
   }
 ]
 
@@ -574,12 +573,12 @@ const asyncRouter = [
   {
     path: '/user/permission/role',
     name: 'RoleIndex',
-    component: () => import('@/pages/intention/list')
+    component: () => import('@/views/user-permission/role/index.vue')
   },
   {
     path: '/user/permission/role/create',
-    name: 'RoleIndex',
-    component: () => import('@/pages/variable')
+    name: 'CreateRole',
+    component: () => import('@/views/user-permission/role/create.vue')
   }
 ]
 ```
