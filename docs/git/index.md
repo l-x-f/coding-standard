@@ -48,6 +48,8 @@
 - test：增加测试
 - chore：构建过程或辅助工具的变动
 
+[实战配置代码](/docs/code/actual-combat/git-hooks.html) 见代码规范实战章节
+
 ## 版本规范
 
 采用 [semver](https://semver.org/lang/zh-CN/) 规范
@@ -56,4 +58,142 @@
 
 ```sh
 git tag -a  "V1.0.0"  -m  'Release V1.0.0`
+```
+
+**实战配置**
+
+- 安装
+
+`execa` `chalk` 注意它们的版本，新版本只支持 ESmodule， 我们锁定在旧版本
+
+```sh
+yarn add chalk@4.1.2 execa@5.1.0 semver enquirer -D
+```
+
+- scripts/release.js
+
+```js
+/* eslint-disable @typescript-eslint/no-var-requires */
+const fs = require('fs')
+const path = require('path')
+const semver = require('semver')
+const { prompt } = require('enquirer')
+const execa = require('execa')
+const chalk = require('chalk')
+const { version: currentVersion } = require('../package.json')
+
+// 打印
+const echo = msg => console.log(chalk.green(msg))
+
+// 运行脚本
+const run = (bin, args, opts = {}) =>
+  execa(bin, args, { stdio: 'inherit', ...opts })
+
+//  版本列表
+const versionIncrements = [
+  'patch（补丁）',
+  'minor（次版本）',
+  'major（主版本）',
+  'prepatch（预构建补丁）',
+  'preminor（预构建次版本）',
+  'premajor（预构建主版本）',
+  'prerelease（预构建发布版本）'
+]
+
+// 增加版本号
+const inc = i => semver.inc(currentVersion, i)
+
+/**
+ * 更新版本号
+ * @param {string} version
+ */
+function updatePackage(version) {
+  const pkgPath = path.resolve(__dirname, '../package.json')
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
+  pkg.version = version
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
+  echo(`更新 package.json version 到 ${version}\n`)
+}
+
+function getInc(value) {
+  const r = /(\w+)/g
+  return r.exec(value)[0]
+}
+
+/**
+ * 打变更日志 提交 打标签 推送到远程仓库
+ * @param {string} version
+ */
+async function publish(version) {
+  try {
+    await run('git', ['add', '-A'])
+    await run('git', ['tag', '-a', version, '-m', `Release v${version}`])
+    await run('npm', ['run', '--name', 'commit'])
+    await run('git', ['pull'])
+    await run('git', ['push', '--tags'])
+    await run('git', ['push'])
+    echo(`\n提交成功${version}`)
+    await run('npm', ['run', '--name', 'build:prod'])
+    echo(`\n打包成功\n`)
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+// 主函数
+async function main() {
+  let version
+
+  const { release } = await prompt({
+    type: 'select',
+    name: 'release',
+    message: 'Select release type',
+    choices: versionIncrements
+      .map(i => `${i} (${inc(getInc(i))})`)
+      .concat(['custom（自定义版本）'])
+  })
+
+  if (release.includes('custom')) {
+    version = (
+      await prompt({
+        type: 'input',
+        name: 'version',
+        message: '输入自定义版本',
+        initial: version
+      })
+    ).version
+  } else {
+    version = release.match(/\((.*)\)/)[1]
+  }
+
+  if (!semver.valid(version)) {
+    throw new Error(`不合法的版本: ${version}`)
+  }
+  updatePackage(version)
+  await publish(version)
+}
+
+main().catch(err => {
+  console.error(err)
+})
+```
+
+- 使用
+
+`package.json` 里配置 `scripts`
+
+```json
+{
+  "scripts": {
+    "release": "node ./scripts/release.js"
+  }
+}
+```
+
+执行下面脚本
+
+一般正式发布版本 `谨慎使用`
+
+```sh
+yarn  release
 ```

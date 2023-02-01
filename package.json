@@ -9,9 +9,7 @@
     "serve": "vitepress serve"
   },
   "devDependencies": {
-    "vitepress": "^1.0.0-alpha.40"
+    "vitepress": "^1.0.0-alpha.45"
   },
-  "dependencies": {
-    "element-plus": "^2.2.28"
-  }
+  "dependencies": {}
 }

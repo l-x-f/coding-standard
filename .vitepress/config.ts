@@ -81,7 +81,16 @@ export default defineConfig({
       },
       {
         text: '前端代码规范',
-        items: [...items]
+        items: [
+          {
+            text: '代码规范',
+            link: '/docs/code/html/'
+          },
+          {
+            text: '代码规范实战',
+            link: '/docs/code/actual-combat/prettier'
+          }
+        ]
       },
       {
         text: 'Git规范',
@@ -126,6 +135,27 @@ export default defineConfig({
         {
           text: '代码规范',
           items: [...items]
+        },
+        {
+          text: '代码规范实战',
+          items: [
+            {
+              text: 'prettier配置',
+              link: '/docs/code/actual-combat/prettier'
+            },
+            {
+              text: 'stylelint配置',
+              link: '/docs/code/actual-combat/stylelint'
+            },
+            {
+              text: 'eslint配置',
+              link: '/docs/code/actual-combat/eslint'
+            },
+            {
+              text: 'git hooks 的添加',
+              link: '/docs/code/actual-combat/git-hooks'
+            }
+          ]
         }
       ]
     },
