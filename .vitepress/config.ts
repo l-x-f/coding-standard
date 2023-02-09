@@ -1,4 +1,10 @@
 import { defineConfig } from 'vitepress'
+import fs from 'node:fs'
+import path from 'node:path'
+
+const resolve = (dir: string) => path.resolve(__dirname, dir)
+
+const blob = fs.readFileSync(resolve('./theme/svg/blog.svg'), 'utf-8')
 
 const items = [
   {
@@ -65,7 +71,11 @@ export default defineConfig({
     outlineTitle: '本页导航',
     lastUpdatedText: '上次更新时间',
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/l-x-f/coding-standard' }
+      { icon: 'github', link: 'https://github.com/l-x-f/coding-standard' },
+      {
+        icon: { svg: blob },
+        link: 'https://l-x-f.github.io'
+      }
     ],
     docFooter: {
       prev: '上一页',

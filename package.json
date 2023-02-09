@@ -9,6 +9,7 @@
     "serve": "vitepress serve"
   },
   "devDependencies": {
+    "@types/node": "^18.13.0",
     "vitepress": "^1.0.0-alpha.45"
   },
   "dependencies": {}
