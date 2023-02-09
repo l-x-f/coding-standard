@@ -55,7 +55,8 @@ export default defineConfig({
           'width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'
       }
     ],
-    ['link', { rel: 'icon', href: '/coding-standard/ico.png' }]
+    ['link', { rel: 'icon', href: '/coding-standard/ico.png' }],
+    ['script', { src: '/coding-standard/hm.js' }]
   ],
   themeConfig: {
     darkModeSwitchLabel: '主题',
