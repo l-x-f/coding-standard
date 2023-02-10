@@ -38,12 +38,16 @@ xxxx
 
 ## 类型定义
 
-- `type` 和 `interface` 并没有谁好谁坏根据它们适合的场景使用即可。
+- `type` 和 `interface` 根据它们适合的场景使用。
+
+  - 优先使用`type`
+  - 对于需要扩展的类型 使用 `interface` （`type`不可以重名）
+  - 那往函数上挂载属性 使用 `interface` （`type`无法实现）
 
   ```ts
   type UnionType = string | number
 
-  interface IMenuItem {
+  type MenuItem = {
     /**
      *  组件名称建议大驼峰命名， 和页面的name保持一致。
      *  名称用于页面缓存，必须保证每个路由的名称唯一
@@ -70,6 +74,39 @@ xxxx
      */
     hidden?: boolean
   }
+
+  /* 需要扩展的类型*/
+  // 来自vite 官方
+  interface ImportMetaEnv {
+    [key: string]: any
+    BASE_URL: string
+    MODE: string
+    DEV: boolean
+    PROD: boolean
+    SSR: boolean
+  }
+  // 来自用户自定义的环境变量
+  interface ImportMetaEnv {
+    readonly VITE_APP_DEFAULT_TITLE: string
+    readonly VITE_APP_BASE_API: string
+  }
+
+  // 为 Window 增加参数
+  interface Window {
+    APP_BASE_API: string
+    APP_WS_BASE_API: string
+    getEdit: () => void
+  }
+
+  /* 往函数上挂载属性   示例来自https://pro.ant.design/zh-CN/docs/type-script */
+  interface FuncWithAttachment {
+    (param: string): boolean
+    someProperty: number
+  }
+
+  const testFunc: FuncWithAttachment = {}
+  const result = testFunc('mike') // 有类型提醒
+  testFunc.someProperty = 3 // 有类型提醒
   ```
 
 - 类型定义的时候必须的属性放在可选的属性前面。
@@ -198,6 +235,20 @@ const item: IItem = {
 ## null 和 undefined：
 
 使用 `undefined`，不要使用 `null`。
+
+## 泛型
+
+业务代码中开发尽量少的写自定义的泛型，更多的是去使用（组件）库已经定义好泛型。
+
+```ts
+import { ref } from 'vue'
+import type { FormInstance, ComponentSize, UploadFile } from 'element-plus'
+import type { CSSProperties } from 'vue'
+
+const formInstance = ref<FormInstance>()
+const headerCellStyle: CSSProperties = {}
+const fileList: UploadFile[] = []
+```
 
 ## 高级类型
 

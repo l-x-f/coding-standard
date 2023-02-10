@@ -151,6 +151,10 @@ export default defineConfig({
           text: '代码规范实战',
           items: [
             {
+              text: 'editorconfig配置',
+              link: '/docs/code/actual-combat/editorconfig'
+            },
+            {
               text: 'prettier配置',
               link: '/docs/code/actual-combat/prettier'
             },
