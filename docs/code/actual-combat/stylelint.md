@@ -16,7 +16,7 @@
   yarn add  stylelint-scss stylelint-config-standard-scss stylelint-config-sass-guidelines  -D
   ```
 
-- 安装 `scss` 对应的`vue` 插件
+- 安装 `vue` 对应的`stylelint` 插件
 
   ```sh
   yarn add stylelint-config-recommended-vue  -D
