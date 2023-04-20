@@ -93,10 +93,7 @@ export default defineConfig({
       {
         text: '前端代码规范',
         items: [
-          {
-            text: '代码规范',
-            link: '/docs/code/html/'
-          },
+          ...items,
           {
             text: '代码规范实战',
             link: '/docs/code/actual-combat/prettier'
