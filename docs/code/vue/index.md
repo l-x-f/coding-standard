@@ -75,11 +75,11 @@ const props = defineProps({
 - 常用
 
   ```ts
-  interface IProps {
+  interface Props {
     content?: string
   }
 
-  const props = withDefaults(defineProps<IProps>(), {
+  const props = withDefaults(defineProps<Props>(), {
     content: ''
   })
   ```
@@ -432,7 +432,13 @@ export default {
 
 ```ts
 // 1. ts 类型
-interface IState {
+interface Props {
+  content: string
+}
+interface Emits {
+  (event: 'select', data: string): string
+}
+interface State {
   msg: string
 }
 
@@ -447,16 +453,16 @@ defineOptions({
 const mode = inject(ProvideKeys.mode) as Ref<string>
 
 // 4. props
-const props = withDefaults(defineProps<IProps>(), {
+const props = withDefaults(defineProps<Props>(), {
   content: ''
 })
 
 // 5. emit
-const emit = defineEmits(['cancel', 'success'])
+const emit = defineEmits<Emits>()
 
 // 6. ref reactive
 const appTable = ref()
-const state = reactive<IState>({
+const state = reactive<State>({
   msg: ''
 })
 
@@ -509,17 +515,17 @@ import Search, { DefaultQuery } from './search.vue'
 import { computed, reactive, ref, nextTick, watch } from 'vue'
 import { useTable, useSetTableHeight, useBase } from '@/hooks'
 import AppTable, { defaultPageInfo } from '@/components/Table'
-import type { ISearchData } from './search.vue'
-import type { ITableConfigRaw, AppTableInstance } from '@/components/Table'
+import type { SearchData } from './search.vue'
+import type { TableConfigRaw, AppTableInstance } from '@/components/Table'
 import { ElMessage } from 'element-plus'
 
 // 推荐
 import { computed, reactive, ref, nextTick, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useTable, useSetTableHeight, useBase } from '@/hooks'
-import type { ITableConfigRaw, AppTableInstance } from '@/components/Table'
+import type { TableConfigRaw, AppTableInstance } from '@/components/Table'
 import AppTable, { defaultPageInfo } from '@/components/Table'
-import type { ISearchData } from './search.vue'
+import type { SearchData } from './search.vue'
 import Search, { DefaultQuery } from './search.vue'
 ```
 

@@ -24,7 +24,7 @@ xxxx
 - 使用 `camelCase` 为属性或本地变量命名。
 - 使用 `camelCase` 为函数命名。
 - 使用 `PascalCase` 为类型命名。
-- 使用 `I` 做为接口名前缀。（作为使用习惯建议使用 `I`，也有好多不建议的，团队保持统一就行）
+- 不使用 `I` 做为接口名前缀。
 - 使用 `PascalCase` 为枚举值命名。
 - 不要为私有属性名添加`_`前缀，使用 `private` 修辞符。
 - 尽可能使用完整的单词拼写命名。
@@ -129,11 +129,11 @@ const baz = false
 
 ```ts
 // 数组
-interface IItem {
+interface Item {
   name: string
   age: number
 }
-const list: IItem[] = []
+const list: Item[] = []
 
 // 元组
 const list: [string, number] = ['name', 18]
@@ -144,11 +144,11 @@ const list: [string, number] = ['name', 18]
 需要声明具体的类型
 
 ```ts
-interface IItem {
+interface Item {
   name: string
   age: number
 }
-const item: IItem = {
+const item: Item = {
   name: 'xi',
   age: 18
 }
@@ -353,8 +353,8 @@ const fileList: UploadFile[] = []
 
   - 可选类型`Partial<T>` 类型都变成可选的
   - 必选类型`Required<T>` 和 `Partial` 的作用相反
-  - 提取属性`Pick<T>` 从 `T` 类型中提取部分属性，作为新的返回类型。
-  - 排除属性`Omit<T>` 和 `Pick` 作用相反，用于从 `T` 类型中，排除部分属性
+  - 提取属性`Pick<T, key>` 从 `T` 类型中提取部分属性，作为新的返回类型。
+  - 排除属性`Omit<T, key>` 和 `Pick` 作用相反，用于从 `T` 类型中，排除部分属性
   - 摘取类型`Extract<T, U>`
   - 排除类型`Exclude<T, U>`
   - 属性映射`Record<K, T>`
@@ -362,6 +362,7 @@ const fileList: UploadFile[] = []
   - 构造函数参数类型`ConstructorParameters<typeof T>`
   - 函数参数类型`Parameters<T>`
   - 函数返回值类型`ReturnType<T>`
+  - 实例类型`InstanceType<T>`
 
 ## 断言
 
