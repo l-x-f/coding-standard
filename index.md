@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Web前端代码规范
   text:
-  tagline: 本规范根据Google，腾讯，阿里等大厂规范和自己多年代码习惯编写而成。 好的代码规范不仅可以保证代码干净整洁还可以极大的降低代码出错的概率。
+  tagline: 本规范根据Google，腾讯，阿里等大厂规范和团队多年代码习惯编写而成。 好的代码规范不仅可以保证代码干净整洁还可以极大的降低代码出错的概率。
   image:
     src: /ico.png
     alt: Logo image
