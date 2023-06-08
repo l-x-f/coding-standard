@@ -7,6 +7,10 @@ npm run build
 
 cd .vitepress/dist
 
+# local
+echo "local deploy..."
+cp -r ./ C:/nginx/html/standard/coding-standard
+
 git init
 git add -A
 git commit -m 'deploy'

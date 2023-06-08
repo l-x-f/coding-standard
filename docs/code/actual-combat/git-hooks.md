@@ -325,12 +325,6 @@ echo  -e "\n\033[32m$success\033[0m"
       "path": "node_modules/cz-customizable"
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,vue}": ["npm run lint"],
     "src/**/*.{vue,css,less,sass,scss}": ["npm run stylelint"]
