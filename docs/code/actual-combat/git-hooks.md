@@ -136,12 +136,6 @@ module.exports = {
       "path": "node_modules/cz-customizable"
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,vue}": ["npm run lint"],
     "src/**/*.{html,vue,css,sass,scss}": ["npm run stylelint"]
