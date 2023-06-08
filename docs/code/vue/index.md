@@ -109,7 +109,7 @@ const props = defineProps({
 
 ## 避免 v-if 中使用不严格等号
 
-`v-if` 中判断永远使用严格相等， 用`===`代替`==`， 代替`!==`代替`!=`。
+`v-if` 中判断永远使用严格相等， 用`===`代替`==`， 用`!==`代替`!=`。
 
 ```html
 <!-- 不推荐 -->
@@ -442,9 +442,9 @@ interface State {
   msg: string
 }
 
-// 2. 遗留的选项
+// 2. 遗留的选项 (vue3.3已经官方支持 不再需要第三方插件unplugin-vue-define-options)
 defineOptions({
-  // 使用第三方插件unplugin-vue-define-options
+  // 使用第三方插件unplugin-vue-define-options (vue3.2.x)
   name: 'AppRule',
   inheritAttrs: true
 })
