@@ -65,6 +65,9 @@ export default defineConfig({
     ['script', { src: '/coding-standard/hm.js' }]
   ],
   themeConfig: {
+    search: {
+      provider: 'local'
+    },
     darkModeSwitchLabel: '主题',
     sidebarMenuLabel: '菜单',
     returnToTopLabel: '返回顶部',
