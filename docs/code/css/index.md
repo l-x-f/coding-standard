@@ -17,15 +17,15 @@
 
 `__` 双下划线：双下划线用来连接块和块的子元素
 
-`_` 单下划线：单下划线用来描述一个块或者块的子元素的一种状态
+`_` 单下划线：单下划线用来描述一个块或者块的子元素的一种状态，更流行的是用 `--` 双中划线来表示，一般采用`--` 代替 `_`。
 
 ```html
 <div class="el-scrollbar">
   <div class="el-scrollbar__wrap">
-    <div class="el-scrollbar__view" style="">
-      <div class="el-scrollbar__view_primary"></div>
-      <div class="el-scrollbar__view_success"></div>
-    </div>
+    <div class="el-scrollbar__view"></div>
+    <div class="el-scrollbar__view--default"></div>
+    <div class="el-scrollbar__view--primary"></div>
+    <div class="el-scrollbar__view--success"></div>
   </div>
 </div>
 ```
